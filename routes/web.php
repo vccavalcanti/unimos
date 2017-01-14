@@ -11,10 +11,26 @@
 |
 */
 
+Auth::routes();
+
 Route::get('/', function () {
     return view('auth.login');
 });
 
-Auth::routes();
-
 Route::get('/home', 'HomeController@index');
+
+Route::get('/professor', function () {
+    return view('home');
+});
+
+Route::get('/administrator', function () {
+    return "vc deveria estar aqui?";
+})->middleware(['role:superadministrator']);
+
+Route::resource('articulador', 'ArticuladorController');
+
+Route::resource('espaco', 'EspacoController');
+
+
+
+

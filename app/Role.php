@@ -2,15 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-//use App\User;
+use Laratrust\LaratrustRole;
 
-class Role extends Model
+class Role extends LaratrustRole
 {
-    public function users() {
-        //return $this->belongsToMany('App\User');
-        return $this->belongsToMany(User::class, 'user_role', 'role_id', 'user_id'); //classe, tabela pivo, FK, OtherKey,relation - opcional
-
-
-    }
+    //
 }

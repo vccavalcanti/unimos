@@ -15,13 +15,13 @@ class UsersTableSeeder extends Seeder
 
     public function run()
     {
-        DB::table('users')->truncate(); //exclui de forma eficiente todas as linhas da tabela
+        //DB::table('users')->truncate(); //exclui de forma eficiente todas as linhas da tabela
 
         $role_professor = Role::where('name', 'professor')->first(); // select * from roles where name = professor limit 1
-        $role_contratante = Role::where('name', 'contratante')->first(); // select * from roles where name = professor limit 1
-        $role_articulador = Role::where('name', 'articulador')->first(); // select * from roles where name = professor limit 1
-        $role_unidadeEnsino = Role::where('name', 'unidadeEnsino')->first(); // select * from roles where name = professor limit 1
-        $role_admin = Role::where('name', 'admin')->first(); // select * from roles where name = professor limit 1
+        $role_contratante = Role::where('name', 'contratante')->first();
+        $role_articulador = Role::where('name', 'articulador')->first();
+        $role_unidadeEnsino = Role::where('name', 'unidadeEnsino')->first();
+        $role_superadministrator = Role::where('name', 'superadministrator')->first();
 
         $professor1 = new User();
         $professor1->name = 'Prof Girafales';
@@ -75,88 +75,17 @@ class UsersTableSeeder extends Seeder
         $articulador2 = new User();
         $articulador2->name = 'Articulador 2';
         $articulador2->email = 'articulador2@mail.com';
-        $articulador2->password = bcrypt('articulador 2');
+        $articulador2->password = bcrypt('articulador2');
         $articulador2->save();
         $articulador2->roles()->attach($role_articulador);
 
         $admin = new User();
-        $admin->name = 'admin';
-        $admin->email = 'admin@mail.com';
-        $admin->password = bcrypt('admin');
+        $admin->name = 'superadministrator';
+        $admin->email = 'superadministrator@mail.com';
+        $admin->password = bcrypt('superadministrator');
         $admin->save();
-        $admin->roles()->attach($role_admin);
+        $admin->roles()->attach($role_superadministrator);
 
-
-      /*  DB::table('users')->insert([
-
-            [
-                'name' => 'admin    ',
-                'email' => 'admin@unimos.com',
-                'password' => bcrypt('admin')   //manda o valor do hash da string john
-            ],
-
-            [
-                'name' => 'jane',
-                'email' => 'jane@mail.com',
-                'password' => bcrypt('jane')   //manda o valor do hash da string jane
-            ],
-
-            [
-                'name' => 'john',
-                'email' => 'john@mail.com',
-                'password' => bcrypt('john')   //manda o valor do hash da string john
-            ],
-
-            [
-                'name' => 'prof1',
-                'email' => 'prof1@mail.com',
-                'password' => bcrypt('prof1')   //manda o valor do hash da string john
-            ],
-
-            [
-                'name' => 'prof2',
-                'email' => 'prof2@mail.com',
-                'password' => bcrypt('prof2')   //manda o valor do hash da string john
-            ],
-
-            [
-                'name' => 'aluno1',
-                'email' => 'aluno1@mail.com',
-                'password' => bcrypt('aluno1')   //manda o valor do hash da string john
-            ],
-
-            [
-                'name' => 'aluno2',
-                'email' => 'aluno2@mail.com',
-                'password' => bcrypt('aluno2')   //manda o valor do hash da string john
-            ],
-
-            [
-                'name' => 'articulador1',
-                'email' => 'articulador1@mail.com',
-                'password' => bcrypt('articulador1')   //manda o valor do hash da string john
-            ],
-
-            [
-                'name' => 'articulador2',
-                'email' => 'articulador2@mail.com',
-                'password' => bcrypt('articulador2')   //manda o valor do hash da string john
-            ],
-
-            [
-                'name' => 'escola1',
-                'email' => 'escola1@mail.com',
-                'password' => bcrypt('escola1')   //manda o valor do hash da string john
-            ],
-
-            [
-                'name' => 'escola2',
-                'email' => 'escola2@mail.com',
-                'password' => bcrypt('escola2')   //manda o valor do hash da string john
-            ],
-
-        ]);
-    */
 
     }
 

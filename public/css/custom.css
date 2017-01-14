@@ -2,6 +2,7 @@ body {
     font-family: 'Open Sans', sans-serif;
     padding-top: 70px;
     background: #f1f1f1 url('../img/body-bg.png');
+
 }
 
 /* Navbar brand */
@@ -11,6 +12,7 @@ body {
     color: #eee;
     letter-spacing: -1px;
     text-transform: uppercase;
+
 }
 
 .navbar .navbar-brand strong {
@@ -19,6 +21,7 @@ body {
     padding-right: 3px;
     color: #fff;
 }
+
 
 
 /* Header */

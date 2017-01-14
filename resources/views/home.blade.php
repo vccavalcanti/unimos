@@ -1,17 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Sistema Unimos</div>
-
-                <div class="panel-body">
-                    Vocé está logado
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="jumbotron text-center">
+                    <h1>Olá, {{ Auth::user()->name }}</h1>
+                    <p class="lead">
+                       Bem vindo ao Sistema Unimos
+                    </p>
+                    <p>
+                        <a href="#" class="btn btn-primary btn-lg">Iniciar</a>
+                    </p>
                 </div>
             </div>
         </div>
     </div>
-</div>
 @endsection

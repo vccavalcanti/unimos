@@ -4,9 +4,13 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laratrust\Traits\LaratrustUserTrait;
+use App\UnidadeEnsino;
+use App\Espaco;
 
 class User extends Authenticatable
 {
+    use LaratrustUserTrait;
     use Notifiable;
 
     /**
@@ -27,30 +31,18 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function roles() {
-        //return $this->hasOne('App\Role');
-        //return $this->hasOne(Role::class);
-        return $this->belongsToMany(Role::class, 'user_role', 'user_id', 'role_id');
+
+    public function UnidadeEnsino(){
+        return $this->hasMany(UnidadeEnsino::class);
     }
 
-    public function hasAnyRole($roles){
-        if (is_array($roles)) {
-            foreach ($roles as $role) {
-                if ($this->hasRole($role)){
-                    return true;
-                }
-            }
-        } elseif ($this->hasRole($roles)){
-            return true;
-        }
-        return false;
+    public function Espacos()
+    {
+        //Relacao entre User e Espaco atraves da unidade de ensino
+        //parametros: 1 - entidade final do relacionamento, 2 - entidade intermediaria, 3 - FK da tabela intermediaria que liga ao ID de users
+        // 4 - fk da tabela final que liga a tabela intermediaria, 5 - pk da tabela users (que eh referenciada pela fk da intermediaria(
+        return $this->hasManyThrough(Espaco::class, UnidadeEnsino::class, 'user_id', 'unidadeEnsino_id', 'id');
+
     }
 
-    public function hasRole($role){
-        if ($this->roles()->where('name', $role)->first()) {
-            return true;
-        }
-        return false;
-    }
-    
 }
