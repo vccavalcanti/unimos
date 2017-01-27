@@ -37,15 +37,15 @@ $factory->define(App\UnidadeEnsino::class, function (Faker\Generator $faker) {
         'telefone' => $faker->phoneNumber ,
         'cnpj' => $faker->randomNumber(8),
         'tipo' => $faker->lexify('Tipo ???'),
-        'user_id' => \App\User::all()->random()->id,
+        'user_id' => \App\Role::with('users')->where('name','unidadeEnsino')->get()->random()->id,
+        'articulador_id' => \App\Role::with('users')->where('name','articulador')->get()->random()->id,
+
 
     ];
 });
 
 $factory->define(App\Espaco::class, function (Faker\Generator $faker) {
     return [
-
-
         //$user_ids = \DB::table('users')->select('id')->get();
         //$user_id = $faker->randomElement($user_ids)->id;
 
@@ -55,12 +55,83 @@ $factory->define(App\Espaco::class, function (Faker\Generator $faker) {
         'valor' => $faker->randomFloat(2,0,9999),
         //'unidadeEnsino_id' => $faker->rand(1, 5)  ,
         //'unidadeEnsino_id'  => random_int(\DB::table('unidades_ensino')->min('id'), \DB::table('unidades_ensino')->max('id')),
-        'unidadeEnsino_id'  => \App\UnidadeEnsino::all()->random()->id,
+        'unidadeEnsino_id'  => \App\Role::with('users')->where('name','unidadeEnsino')->get()->random()->id,
     ];
 });
 
+$factory->define(App\Aula::class, function (Faker\Generator $faker) {
+    return [
+        'nome' => $faker->name,
+        'descricao' => $faker->realText(),
+        'objeto_id' => \App\Objeto::all()->random()->id,
+        'professor_id' => \App\Role::with('users')->where('name','professor')->get()->random()->id,
+        'espaco_id'  => \App\Espaco::all()->random()->id,
+    ];
+});
 
+$factory->define(App\Contratante::class, function (Faker\Generator $faker) {
+    return [
+        'dob' => $faker->date('Y-m-d', 'now'),
+        'sexo' => 'M',
+        'telefone' => $faker->phoneNumber ,
+        'preferencia_contato' => 'e-mail',
+        'cpf' => $faker->numerify('###########'),
+        'rg' => $faker->randomNumber(9),
+        'rua' => $faker->streetName,
+        'numero' => $faker->buildingNumber,
+        'cep' => $faker->postcode,
+        'complemento' => $faker->secondaryAddress  ,
+        'bairro' => $faker->name,
+        'cidade' => $faker->city,
+        'uf_id' => rand(1, 27),
+        'user_id' => \App\Role::with('users')->where('name','contratante')->get()->random()->id,
 
+    ];
+});
 
+$factory->define(App\Professor::class, function (Faker\Generator $faker) {
+    return [
+        'telefone' => $faker->phoneNumber ,
+        'cpf' => $faker->numerify('###########'),
+        'rg' => $faker->randomNumber(9),
+        'pis' => $faker->numerify('###########'),
+        'dob' => $faker->date('Y-m-d', 'now'),
+        'sexo' => 'M',
+        'descricao' => $faker->realText(),
+        'rua' => $faker->streetName,
+        'numero' => $faker->buildingNumber,
+        'cep' => $faker->postcode,
+        'complemento' => $faker->secondaryAddress  ,
+        'bairro' => $faker->name,
+        'cidade' => $faker->city,
+        'uf_id' => rand(1, 27),
+        'user_id' => \App\Role::with('users')->where('name','professor')->get()->random()->id,
+        'articulador_id' => \App\Role::with('users')->where('name','articulador')->get()->random()->id,
+
+    ];
+});
+
+$factory->define(App\Articulador::class, function (Faker\Generator $faker) {
+    return [
+        'nome_pj' => $faker->name,
+        'nome_fantasia' => $faker->name,
+        'telefone' => $faker->phoneNumber ,
+        'cpf' => $faker->numerify('###########'),
+        'rg' => $faker->randomNumber(9),
+        'cnpj' => $faker->randomNumber(8),
+        'dob' => $faker->date('Y-m-d', 'now'),
+        'sexo' => 'M',
+        'descricao' => $faker->realText(),
+        'rua' => $faker->streetName,
+        'numero' => $faker->buildingNumber,
+        'cep' => $faker->postcode,
+        'complemento' => $faker->secondaryAddress  ,
+        'bairro' => $faker->name,
+        'cidade' => $faker->city,
+        'uf_id' => rand(1, 27),
+        'user_id' => \App\Role::with('users')->where('name','articulador')->get()->random()->id,
+
+    ];
+});
 
 

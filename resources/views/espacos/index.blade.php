@@ -8,7 +8,7 @@
                 <h4> Espaços </h4>
             </div>
             <div class="pull-right">
-                <a href="#" class="btn btn-success">
+                <a href="{{ route("espaco.create") }}" class="btn btn-success">
                     <i class="glyphicon glyphicon-plus"></i>
                     Adicionar Espaço
                 </a>

@@ -14,23 +14,55 @@
 Auth::routes();
 
 Route::get('/', function () {
-    return view('auth.login');
-});
+    //return view('auth.login');
+    return view('home');
+})->middleware('auth');
 
 Route::get('/home', 'HomeController@index');
 
-Route::get('/professor', function () {
-    return view('home');
+
+Route::group(['middleware' => 'auth'], function() {
+    Route::resource('articulador', 'ArticuladorController');
+    Route::resource('unidadeensino', 'UnidadeEnsinoController');
+    Route::resource('espaco', 'EspacoController');
+
+
+    Route::resource('professor', 'ProfessorController');
+    Route::get('/profile/professor',[
+        'as' => 'professor.profile',
+        'uses' => 'ProfessorController@profile'
+    ]);
+
+    Route::resource('contratante', 'ContratanteController');
+    Route::get('/profile/contratante',[
+        'as' => 'contratante.profile',
+        'uses' => 'ContratanteController@profile'
+    ]);
 });
+
+
+
+
+
+
+//testes
 
 Route::get('/administrator', function () {
     return "vc deveria estar aqui?";
 })->middleware(['role:superadministrator']);
 
-Route::resource('articulador', 'ArticuladorController');
+Route::get('/paypal', function () {
+    return view('paypal');
+});
 
-Route::resource('espaco', 'EspacoController');
+Route::get('/profile/articulador/{username}','ArticuladorController@profile' );
 
+Route::get('/roles', function () {
+    return view('roles');
+});
 
-
-
+Route::get('/addRoleUnidade', function () {
+    $role_unidadeEnsino = App\Role::where('name', 'unidadeEnsino')->first();
+    Auth::user()->attachRole($role_unidadeEnsino);
+    return view('roles');
+});
